@@ -42,7 +42,7 @@ class RepeatingThread(threading._Timer):
 
 class ElasticSearchHelper(object):
 	
-	def __init__(self, client, index, extra_values=None, auto_flush=True, flush_period_seconds=1):
+	def __init__(self, client, index, extra_values=None, auto_flush=True, flush_period_seconds=20):
 		"""
 		
 		:param client: ElasticSearch Client that's already initialized
