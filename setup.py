@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='elasticsearch_util',
-      version='0.1.0',
+      version='0.3.0',
       packages=find_packages(),
       description='Pythonic ElasticSearch Logging',
       author='Gehad Shaat',
