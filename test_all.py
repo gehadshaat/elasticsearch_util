@@ -4,7 +4,7 @@ import time
 import os
 
 import elasticsearch
-from elasticsearch_util.helper import ElasticSearchHelper
+from elasticsearch_util.helper import ElasticSearchHelper, MockElasticSearchHelper
 
 # modify this to run tests
 ELASTIC_SEARCH_HOST = os.environ['ELASTIC_SEARCH_HOST']
@@ -12,6 +12,26 @@ ELASTIC_SEARCH_HOST = os.environ['ELASTIC_SEARCH_HOST']
 
 def test_elasticsearch_factory():
 	helper = ElasticSearchHelper.get_instance(host=ELASTIC_SEARCH_HOST, index='test_index')
+	helper.log_feature('test_elasticsearch_factory_0')
+	helper.log_feature('test_elasticsearch_factory_1')
+	time.sleep(1)
+	helper.log_feature('test_elasticsearch_factory_2')
+	time.sleep(1)
+	helper.log_feature('test_elasticsearch_factory_3')
+	time.sleep(1)
+	helper.log_feature('test_elasticsearch_factory_4')
+	helper.log_feature('test_elasticsearch_factory_5')
+	pprint(helper.default_values)
+
+def test_elasticsearch_factory_fail():
+	passed = True
+	try:
+		helper = ElasticSearchHelper.get_instance(host=ELASTIC_SEARCH_HOST+'BOGUS', index='test_index')
+		passed = False
+	except Exception as e:
+		helper = MockElasticSearchHelper()
+
+	assert passed, "Should have failed and defaulted to Mock Class"
 	helper.log_feature('test_elasticsearch_factory_0')
 	helper.log_feature('test_elasticsearch_factory_1')
 	time.sleep(1)

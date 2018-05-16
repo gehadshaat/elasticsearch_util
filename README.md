@@ -40,6 +40,12 @@ Decorator will not alter function behavior and will return. This will add an ove
 from elasticsearch_util.helper import ElasticSearchHelper
 helper = ElasticSearchHelper.get_instance(host='INDEX_HOST_NAME', index='test_index')
 
+# to add extra values to go with every request
+helper.extra_values = {
+    'project_name': 'MyToolName',
+    'version': '2.0',
+}
+
 @helper.log_feature_decorator("func_to_decorate_executed", developer="gehad")
 def func_to_decorate():
     pass
@@ -48,6 +54,17 @@ def func_to_decorate():
 func_to_decorate()
 ```
 Check test_all.py for more examples.
+# Erro Handling usage
+```python
+from elasticsearch_util.helper import ElasticSearchHelper, MockElasticSearchHelper
+
+try:
+    helper = ElasticSearchHelper.get_instance(host='OFFLINE_SERVER', index='test_index')
+except Exception as e:
+    helper = MockElasticSearchHelper()
+    
+# use helper as before!
+```
 
 # Release
 To make a release you will need to be a collaborator on the porject. Please contact package owner to be added as a collaborator.

@@ -8,7 +8,6 @@ import socket
 import threading
 import time
 import traceback
-import urllib2
 from copy import deepcopy
 
 import elasticsearch
@@ -251,5 +250,26 @@ class ElasticSearchHelper(object):
                     raise
 
             return wrapper
+
+        return decorator
+
+
+class MockElasticSearchHelper(ElasticSearchHelper):
+
+    def __init__(self, *args, **kwargs):
+        super(MockElasticSearchHelper, self).__init__(client=None, index='none', auto_flush=False)
+
+    def validate_connection(self):
+        pass
+
+    def log_feature(self, *args, **kwargs):
+        pass
+
+    def log_feature_error(self, *args, **kwargs):
+        pass
+
+    def log_feature_decorator(self, feature_name, **feature_kwargs):
+        def decorator(function):
+            return function
 
         return decorator
