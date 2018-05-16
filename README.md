@@ -15,8 +15,8 @@ pip install elasticsearch_util
 if you are behind proxy
 
 ```
-set http_proxy=http://proxy:proxy_port
-set https_proxy=http://proxy:proxy_port
+set http_proxy=http://<YOUR_PROXY_HOST>:<YOUR_PROXY_PORT>
+set https_proxy=http://<YOUR_PROXY_HOST>:<YOUR_PROXY_PORT>
 pip install elasticsearch_util
 ```
 
