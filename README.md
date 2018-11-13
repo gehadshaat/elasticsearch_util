@@ -35,7 +35,7 @@ import socket, os
 from elasticsearch_util.helper import ElasticSearchHelper
 helper = ElasticSearchHelper.get_instance(host='INDEX_HOST_NAME', index='test_index')
 # add extra values that will be pushed with each record (make sure it doesn't conflict with default values, otherwise an exception will occur)
-helper.extra_values = {'host': socket.gethostname(), 'version': '1.0', 'tool': 'DataAnalysis', 'developer': 'gehad'} 
+helper.extra_values = {'version': '1.0', 'tool': 'DataAnalysis', 'developer': 'gehad'} 
 # log a feature
 helper.log_feature('test_my_feature')
 ```
