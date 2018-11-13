@@ -24,8 +24,12 @@ pip install elasticsearch_util
 Here is a simple way to use this library.
 
 ```python
+import socket, os
 from elasticsearch_util.helper import ElasticSearchHelper
 helper = ElasticSearchHelper.get_instance(host='INDEX_HOST_NAME', index='test_index')
+# add extra values that will be pushed with each record
+helper.extra_values = {'host': socket.gethostname(), 'version': '1.0', 'tool': 'DataAnalysis', 'developer': 'gehad'} 
+# log a feature
 helper.log_feature('test_my_feature')
 ```
 
@@ -46,7 +50,8 @@ helper.extra_values = {
     'version': '2.0',
 }
 
-@helper.log_feature_decorator("func_to_decorate_executed", developer="gehad")
+# Decorate a function so any call will be logged as a feature along with meta data. Metadata keys cannot conflict with extra_values
+@helper.log_feature_decorator("func_to_decorate_executed", requestor="asante")
 def func_to_decorate():
     pass
 
@@ -82,6 +87,6 @@ test will actually push data to test_index
 ```
 pip install pytest
 set ELASTIC_SEARCH_HOST=elasticsearch-server
-python - m pytest test_all.py
+python -m pytest test_all.py
 
 ```
