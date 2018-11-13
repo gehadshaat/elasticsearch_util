@@ -21,13 +21,20 @@ pip install elasticsearch_util
 ```
 
 # Basic usage
-Here is a simple way to use this library.
+Here is a simple way to use this library. Note that every request will contain the following values:
+{
+    'host': '<HOSTNAME>',
+    'process': '<CURRENT_PROCESS>',
+    'threadName': '<CURRENT_THREAD_NAME>',
+    'thread': '<CURRENT_THREAD_ID>',
+    'timestamp': '<CURRENT_TIME_STAMP>'
+}
 
 ```python
 import socket, os
 from elasticsearch_util.helper import ElasticSearchHelper
 helper = ElasticSearchHelper.get_instance(host='INDEX_HOST_NAME', index='test_index')
-# add extra values that will be pushed with each record
+# add extra values that will be pushed with each record (make sure it doesn't conflict with default values, otherwise an exception will occur)
 helper.extra_values = {'host': socket.gethostname(), 'version': '1.0', 'tool': 'DataAnalysis', 'developer': 'gehad'} 
 # log a feature
 helper.log_feature('test_my_feature')
